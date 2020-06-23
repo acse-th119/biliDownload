@@ -1,4 +1,6 @@
 ###################
+.gitattributes
+.gitignore
 *.mp4
 *.mp3
 *.com
@@ -30,6 +32,7 @@
 # OS generated files #
 ######################
 .DS_Store
+.idea
 .ipynb_checkpoints
 .DS_Store?
 ._*
