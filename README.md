@@ -1,5 +1,15 @@
 # biliDownload
 
+```
+My Env Version:
+Python 		3.6.3
+requests	2.23.0
+```
+
+
+
+
+
 Copy the BV code in bilibili.
 
 And paste it in `bili.run` method.
@@ -27,7 +37,7 @@ brew install ffmpeg
 
 For Windows
 
-Just download the ffmpeg in this project, and put it in the same folder of the code.
+Just download the ffmpeg in this project, and put it in the same folder of the code file.
 
 
 
@@ -35,8 +45,15 @@ Just download the ffmpeg in this project, and put it in the same folder of the c
 
 Find those two lines in the code then comment or remove them.
 
+At least you will get the sperated video file and audio file.
+
+You can combine them with `Pr` or `Final Cut Pro`.
+
 ```python
 os.remove(video_path)
 os.remove(audio_path)
 ```
 
+
+
+Just for learning how to get web stream information, please delete what you download in 24h. 
