@@ -29,7 +29,8 @@ class BiliDownloader:
         req.encoding = 'utf-8'
         return req.text
 
-    def run(self, url_bili):
+    def run(self, bv_code):
+        url_bili = 'https://www.bilibili.com/video/' + bv_code
         req = self.req_web(url_bili)
 
         page_pat = re.compile('"page":(\d*?),"from".*?"part":"(.*?)",', re.S)
@@ -104,7 +105,7 @@ class BiliDownloader:
         req_stream = self.session.get(video_url, stream=True, headers=headers)
         
         bv_code = down_url.split('/')[-1].split('?')[0]
-        store_path = os.path.join(os.getcwd(),bv_code+'_'+self.title)
+        store_path = os.path.join(os.getcwd()+'/download',bv_code+'_'+self.title)
 
         if not os.path.exists(store_path):
             os.mkdir(store_path)
@@ -143,7 +144,7 @@ class BiliDownloader:
         file.close()
         
         
-        # mac/linux version:
+        # -------------- mac/linux version --------------
         # you should have ffmpeg in your PC:
         # brew install ffmpeg
         
@@ -155,7 +156,7 @@ class BiliDownloader:
         os.remove(video_path)
         os.remove(audio_path)
 
-#         # windows version:
+#         # -------------- windows version --------------
 #         mixer_path = os.path.join(os.getcwd(),'ffmpeg.exe')
 #         if os.path.exists(mixer_path):            
 
@@ -170,10 +171,11 @@ class BiliDownloader:
 #             print("No ffmpeg for mixing, Origin Video and Audio saved.")
         
 #         time.sleep(5)
+
         
 
 bili = BiliDownloader()
-bili.run('https://www.bilibili.com/video/BV1Xx411m7kn')
+bili.run('BV1Xx411m7kn')
 # linux运维 https://www.bilibili.com/video/BV1r4411A7Qk
 
 # 小程序测试 https://www.bilibili.com/video/BV1PT4y1G7cy
