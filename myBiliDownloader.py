@@ -20,13 +20,12 @@ class BiliDownloader:
         self.url = ''
         self.quality = 'h'
 
-        
     def req_web(self, url, main=False, stream_mode=False):
         if main:
             headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
-            'Content-Range': 'bytes 0-xxxxxx',
-            'Referer': main
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+                'Content-Range': 'bytes 0-xxxxxx',
+                'Referer': main
             }
             if stream_mode:
                 return self.session.get(url, stream=True, headers=headers)
@@ -34,15 +33,14 @@ class BiliDownloader:
                 return self.session.get(url, headers=headers)
         else:
             headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
-            'Content-Range': 'bytes 0-xxxxxx',
-            'Referer': url
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+                'Content-Range': 'bytes 0-xxxxxx',
+                'Referer': url
             }
             req = self.session.get(url, headers=headers)
             req.encoding = 'utf-8'
             return req.text
 
-        
     def modify_quality(self,video_dict):
         # Modify quality
         highest_quality = sorted(video_dict.keys(),key=lambda x:int(x[:-1]))[-1]
@@ -69,8 +67,7 @@ class BiliDownloader:
                     time.sleep(5)
                     self.modify_quality(video_dict)
         return video_url
-        
-        
+
     def download_video(self,video_url,video_path):
         req_stream = self.req_web(video_url, main=self.down_url, stream_mode=True)
      
@@ -97,14 +94,12 @@ class BiliDownloader:
                     time1 = time.time()
         file.close()
 
-        
     def download_audio(self,audio_url,audio_path):
         r = self.req_web(audio_url, main=self.down_url)
         file = open(audio_path, "wb")
         file.write(r.content)
         file.close()
 
-        
     def mix_final(self,video_path, audio_path, final_path):
         # -------------- mac/linux version --------------
         # you should have ffmpeg in your PC:
@@ -162,8 +157,7 @@ class BiliDownloader:
         self.download_video(video_url,video_path)
         self.download_audio(audio_url,audio_path)
         self.mix_final(video_path, audio_path, final_path)
-        
-        
+
     def run(self, bv_code):
         
         if bv_code.startswith('http'):
@@ -201,6 +195,7 @@ class BiliDownloader:
             self.download(self.url_bili, title)
             
         input("\nFilm has been saved, please press Enter to quit.")
+
 
 bili = BiliDownloader()
 bili.run('BV1Xx411m7kn')
